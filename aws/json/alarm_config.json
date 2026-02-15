@@ -1,0 +1,28 @@
+{
+  "AlarmName": "DailyEstimatedCharges",
+  "AlarmDescription": "This alarm would be triggered if the daily estimated charges exceeds 1$",
+  "ActionsEnabled": true,
+  "AlarmActions": [
+    "arn:aws:sns:us-east-1:864475311173:billing-alarm"
+  ],
+  "Metrics": [{
+    "Id": "m1",
+    "MetricStat": {
+      "Metric": {
+        "Namespace": "AWS/Billing",
+        "MetricName": "EstimatedCharges",
+        "Dimensions": [{
+          "Name": "Currency",
+          "Value": "USD"
+        }]
+      },
+      "Period": 86400,
+      "Stat": "Maximum"
+    },
+    "ReturnData": true
+  }],
+  "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+  "EvaluationPeriods": 1,
+  "Threshold": 1,
+  "TreatMissingData": "breaching"
+}
